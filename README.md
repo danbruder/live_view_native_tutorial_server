@@ -1,18 +1,5 @@
-# LvnTutorial
+# Live View Native Tutorial (server)
 
-To start your Phoenix server:
+Tutorial source [here](https://liveviewnative.github.io/liveview-client-swiftui/tutorials/yourfirstapp/). iOS code [here](https://github.com/danbruder/live_view_native_tutorial_ios).
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+This follows the tutorial and adds PubSub at the end in order to live update all clients.
