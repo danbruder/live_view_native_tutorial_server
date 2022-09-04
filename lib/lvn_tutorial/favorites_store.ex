@@ -1,6 +1,8 @@
 defmodule LvnTutorial.FavoritesStore do
   use GenServer
 
+  @topic inspect(__MODULE__)
+
   # Client
 
   def start_link(_) do
@@ -44,7 +46,9 @@ defmodule LvnTutorial.FavoritesStore do
         [name | favorites]
       end
 
-    {:reply, new, {new, scores}}
+    {:reply, new,
+     {new, scores}
+     |> broadcast}
   end
 
   @impl true
@@ -54,10 +58,20 @@ defmodule LvnTutorial.FavoritesStore do
 
   @impl true
   def handle_call({:set_score, name, score}, _from, {favorites, scores}) do
-    new =
-      Map.put(scores, name, score)
-      |> IO.inspect()
+    new = Map.put(scores, name, score)
 
-    {:reply, new, {favorites, new}}
+    {:reply, new,
+     {favorites, new}
+     |> broadcast}
+  end
+
+  # Pub sub
+  def subscribe() do
+    Phoenix.PubSub.subscribe(Gex.PubSub, @topic)
+  end
+
+  def broadcast(value) do
+    Phoenix.PubSub.broadcast(Gex.PubSub, @topic, value)
+    value
   end
 end

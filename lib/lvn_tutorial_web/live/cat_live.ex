@@ -12,6 +12,8 @@ defmodule LvnTutorialWeb.CatLive do
   )
 
   def mount(%{"name" => name}, _session, socket) do
+    if connected?(socket), do: FavoritesStore.subscribe()
+
     {:ok,
      assign(socket,
        name: name,
@@ -28,5 +30,14 @@ defmodule LvnTutorialWeb.CatLive do
   def handle_event("toggle-favorite", _, socket) do
     new = FavoritesStore.toggle_favorite(socket.assigns.name)
     {:noreply, assign(socket, favorite: Enum.member?(new, socket.assigns.name))}
+  end
+
+  def handle_info(_, socket) do
+    {:noreply,
+     assign(socket,
+       # Refresh the state
+       favorite: Enum.member?(FavoritesStore.get_favorites(), socket.assigns.name),
+       score: FavoritesStore.get_score(socket.assigns.name)
+     )}
   end
 end

@@ -1,5 +1,5 @@
 <list nav-title="Cats!">
-  <%= for {name, favorite} <- @cats_and_favorites do %>
+  <%= for {name, _} <- @cats_and_favorites do %>
     <navigationlink id={name} data-phx-link="redirect" data-phx-link-state="push" data-phx-href={Routes.live_path(@socket, LvnTutorialWeb.CatLive, name)}>
       <hstack>
         <asyncimage src={"/images/cats/#{String.downcase(name)}.jpg"} frame-width="100" frame-height="100" />

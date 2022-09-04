@@ -30,6 +30,7 @@ defmodule LvnTutorialWeb.CatsListLive do
   ]
 
   def mount(_params, _session, socket) do
+    if connected?(socket), do: FavoritesStore.subscribe()
     {:ok, assign(socket, cats_and_favorites: get_cats_and_favorites())}
   end
 
@@ -48,5 +49,13 @@ defmodule LvnTutorialWeb.CatsListLive do
     FavoritesStore.toggle_favorite(name)
     new = get_cats_and_favorites()
     {:noreply, assign(socket, cats_and_favorites: new)}
+  end
+
+  def handle_info(_, socket) do
+    {:noreply,
+     assign(
+       socket,
+       cats_and_favorites: get_cats_and_favorites()
+     )}
   end
 end
