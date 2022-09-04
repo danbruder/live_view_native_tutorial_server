@@ -67,11 +67,11 @@ defmodule LvnTutorial.FavoritesStore do
 
   # Pub sub
   def subscribe() do
-    Phoenix.PubSub.subscribe(Gex.PubSub, @topic)
+    Phoenix.PubSub.subscribe(LvnTutorial.PubSub, @topic)
   end
 
   def broadcast(value) do
-    Phoenix.PubSub.broadcast(Gex.PubSub, @topic, value)
+    Phoenix.PubSub.broadcast(LvnTutorial.PubSub, @topic, value)
     value
   end
 end
